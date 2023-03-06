@@ -30,20 +30,22 @@ const userSchema =  new Schema({
         required: true
     },
     city: {
-        type: String
+        type: String,
+        default: ''
     },
     post: {
         type: String,
+        default: ''
     },
     avatar: {
         type: String,
         default: '',
     },
-    userName: {
+    username: {
         type: String,
         required: true,
         unique: true,
-        default: "no latin name"
+        default: ''
     }
 }, {timestamps: true});
 
