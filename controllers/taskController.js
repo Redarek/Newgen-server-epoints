@@ -8,7 +8,7 @@ class TaskController {
         try {
             const {employee, categories, title, text, firstReward, secondReward, penalty, start, firstEnd, secondEnd} = req.body;
             const employeeId = await userService.getUserIdByName(req.body.employee);
-            const taskData = new taskModel({user: req.user._id, employee, employeeId, categories, title, text, firstReward, secondReward, penalty, start, firstEnd, secondEnd});
+            const taskData = new taskModel({user: req.user.id, employee, employeeId, categories, title, text, firstReward, secondReward, penalty, start, firstEnd, secondEnd});
             const task = await taskService.createTask(taskData);
             return res.json(task);
             // return res.json({task: taskData, status: 'success'});
@@ -41,7 +41,7 @@ class TaskController {
         try {
             const tasks = await taskService.getAllTasksByEmployeeId({employeeId: req.params.employeeId});
             // DEV
-            // ЦИКЛ СДВИГА ДАТ ДЛЯ ЗАДАЧ 
+            // ЦИКЛ СДВИГА ДАТ ДЛЯ ЗАДАЧ
             // !!!лучше не трогать!!!
             // for (let i = 0; i < tasks.length; i++) {
             //     let day = new Date(tasks[i].start).getDate()
@@ -50,7 +50,7 @@ class TaskController {
             //         let strt = tasks[i].start.getTime() + 1000*60*60*3
             //         let endd = tasks[i].firstEnd.getTime() + 1000*60*60*3
             //         console.log(`Задача №${i} ${tasks[i].title} у ${tasks[i].employee} обновлена на \n {${new Date(strt)},\n ${new Date(endd)}}`)
-            //         await taskService.updateTask(tasks[i]._id, {
+            //         await taskService.updateTask(tasks[i].id, {
             //             start: strt,
             //             firstEnd: endd
             //         })
@@ -68,7 +68,7 @@ class TaskController {
         try {
             const {employee, categories, title, text, firstReward, secondReward, penalty, start, firstEnd, secondEnd} = req.body;
             const employeeId = await userService.getUserIdByName(req.body.employee);
-            const taskData = {user: req.user._id, employee, employeeId, categories, title, text, firstReward, secondReward, penalty, start, firstEnd, secondEnd}
+            const taskData = {user: req.user.id, employee, employeeId, categories, title, text, firstReward, secondReward, penalty, start, firstEnd, secondEnd}
             const task = await taskService.updateTask(req.params.id, taskData)
             return res.json(task);
             // return res.json({task, status: 'success'});

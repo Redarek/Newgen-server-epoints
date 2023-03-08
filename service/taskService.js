@@ -4,8 +4,8 @@ const taskModel = require('../models/taskModel');
 class TaskService {
 
     async createTask(taskData) {
-        // сохраняем таск в БД 
-        const task = await taskModel.create(taskData); 
+        // сохраняем таск в БД
+        const task = await taskModel.create(taskData);
         return task;
     }
 
@@ -30,7 +30,7 @@ class TaskService {
         //     let firstEnd = new Date(task.firstEnd);
         //     let secondEnd = new Date(task.secondEnd);
         //     let complete = task.complete;
-        //     let id = task._id;
+        //     let id = task.id;
         //     let deadlineStatus = task.deadlineStatus;
 
             // if (!complete) { //обновление статуса дедлайна для получения бонусов
@@ -49,7 +49,7 @@ class TaskService {
             //     }
             // }
             // return task;
-            
+
         // }))
         // console.log(updateTasks)
         // return updateTasks;
