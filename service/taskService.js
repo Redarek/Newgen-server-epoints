@@ -58,7 +58,8 @@ class TaskService {
 
     async updateTask(id, taskData) {
         const task = await taskModel.findByIdAndUpdate(id, taskData)
-        return task;
+        const taskUpdated = await taskModel.findById(id)
+        return taskUpdated;
     }
 
     async deleteTask(id) {

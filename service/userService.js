@@ -116,7 +116,8 @@ class UserService {
 
     async updateUser(id, userData) {
         const user = await userModel.findByIdAndUpdate(id, userData)
-        return user;
+        const userUpdated = await userModel.findById(id)
+        return userUpdated;
     }
 }
 
