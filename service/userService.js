@@ -9,7 +9,7 @@ const ApiError = require('../exceptions/ApiError');
 const roleModel = require('../models/roleModel');
 const API_URL = process.env.NODE_ENV === "production" ? 'https://pointsystem.rushools.ru/api' : 'http://localhost:8080/api';
 class UserService {
-    async registration(email, username, firstname, lastname, password) {
+    async registration(email, username, firstName, lastName, password) {
         const candidateEmail = await userModel.findOne({ email });
         // Проверяем, есть ли email в БД
         if (candidateEmail) {
@@ -26,7 +26,7 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 3); //хэшируем пароль
         const activationLink = uuid.v4(); // генерация ссылки активации для письма на email
 
-        const user = await userModel.create({ email, username, firstname, lastname, password: hashPassword, activationLink }); // сохраняем польз-ля в БД
+        const user = await userModel.create({ email, username, firstName, lastName, password: hashPassword, activationLink }); // сохраняем польз-ля в БД
         // await mailService.sendActivationMail(email, `${API_URL}/activate/${activationLink}`);
 
         const userDto = new UserDto(user); //передаём все данные о пользователе в DTO (Data Transfer Object) dto получаем на клиенте и dto нужен для отправки email письма
@@ -100,6 +100,10 @@ class UserService {
 
     async getAllUsers() {
         const users = await userModel.find();
+
+        for (let i = 0; i < users.length; i++) {
+            users[i] = new UserProfileDto(users[i])
+        }
         return users;
     }
 
